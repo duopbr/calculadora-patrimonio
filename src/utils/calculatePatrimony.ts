@@ -57,7 +57,7 @@ export const calculateTimeToPatrimony = (
   // Store the adjustedTarget for each month
   let adjustedTarget = desiredPatrimony;
   
-  while (currentPatrimony < desiredPatrimony && totalMonths < MAX_MONTHS) {
+  while (currentPatrimony < adjustedTarget && totalMonths < MAX_MONTHS) {
     // Add data point for this month
     chartData.push({
       month: totalMonths,
