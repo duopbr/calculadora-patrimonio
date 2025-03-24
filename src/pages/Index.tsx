@@ -1,12 +1,13 @@
 
 import React, { useState, useEffect } from 'react';
-import { CircleDollarSign, BarChart, Calculator, Trash2 } from 'lucide-react';
+import { CircleDollarSign, BarChart, Calculator, Trash2, ChartLine } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { toast } from 'sonner';
 import CurrencyInput from '@/components/CurrencyInput';
 import ResultCard from '@/components/ResultCard';
+import PatrimonyChart from '@/components/PatrimonyChart';
 import { calculateTimeToPatrimony } from '@/utils/calculatePatrimony';
 import { formatCurrency, parseCurrency } from '@/utils/formatCurrency';
 
@@ -24,6 +25,7 @@ const Index = () => {
     years: number;
     months: number;
     adjustedPatrimony: number;
+    chartData: Array<{ month: number; patrimony: number; adjustedTarget: number }>;
   } | null>(null);
   
   // State for animations
@@ -229,7 +231,10 @@ const Index = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 h-full">
-              <h3 className="text-xl font-semibold text-duop-dark mb-6">Resultados</h3>
+              <h3 className="text-xl font-semibold text-duop-dark mb-6 flex items-center gap-2">
+                <ChartLine size={20} className="text-duop" />
+                Resultados
+              </h3>
               
               {results ? (
                 <motion.div
@@ -246,6 +251,12 @@ const Index = () => {
                     label="Patrimônio Corrigido pela Inflação"
                     value={formatCurrency(results.adjustedPatrimony)}
                   />
+                  
+                  {/* Chart Section */}
+                  <div className="mt-6">
+                    <h4 className="text-sm font-medium text-gray-600 mb-2">Evolução do Patrimônio</h4>
+                    <PatrimonyChart data={results.chartData} />
+                  </div>
                 </motion.div>
               ) : (
                 <div className="h-[calc(100%-2rem)] flex flex-col items-center justify-center text-gray-400">

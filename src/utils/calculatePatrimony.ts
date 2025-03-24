@@ -17,7 +17,12 @@ export const calculateTimeToPatrimony = (
   monthlyReturn: number,
   inflationRate: number,
   annualContributionIncrease: number
-): { years: number; months: number; adjustedPatrimony: number } => {
+): { 
+  years: number; 
+  months: number; 
+  adjustedPatrimony: number;
+  chartData: Array<{ month: number; patrimony: number; adjustedTarget: number }>;
+} => {
   // Convert percentages to decimal
   const monthlyReturnDecimal = monthlyReturn / 100;
   const monthlyInflationDecimal = inflationRate / 1200; // Annual to monthly and to decimal
@@ -34,19 +39,32 @@ export const calculateTimeToPatrimony = (
     30 // Default to 30 years for the inflation adjustment estimate
   );
   
+  // Data for the chart
+  const chartData: Array<{ month: number; patrimony: number; adjustedTarget: number }> = [];
+  
   // If impossible scenario (negative or zero returns with insufficient initial value)
   if (
     monthlyReturnDecimal <= 0 && 
     initialValue < desiredPatrimony && 
     monthlyContribution <= 0
   ) {
-    return { years: 0, months: 0, adjustedPatrimony };
+    return { years: 0, months: 0, adjustedPatrimony, chartData: [] };
   }
   
   // Maximum number of months to prevent infinite loops (100 years)
   const MAX_MONTHS = 12 * 100;
   
+  // Store the adjustedTarget for each month
+  let adjustedTarget = desiredPatrimony;
+  
   while (currentPatrimony < desiredPatrimony && totalMonths < MAX_MONTHS) {
+    // Add data point for this month
+    chartData.push({
+      month: totalMonths,
+      patrimony: currentPatrimony,
+      adjustedTarget: adjustedTarget
+    });
+    
     // Apply monthly return
     currentPatrimony = currentPatrimony * (1 + monthlyReturnDecimal);
     
@@ -59,17 +77,27 @@ export const calculateTimeToPatrimony = (
     if (totalMonths % 12 === 0) {
       currentMonthlyContribution *= (1 + annualContributionIncreaseDecimal);
     }
+    
+    // Adjust target for inflation (monthly)
+    adjustedTarget *= (1 + monthlyInflationDecimal);
   }
+  
+  // Add final data point when target is reached
+  chartData.push({
+    month: totalMonths,
+    patrimony: currentPatrimony,
+    adjustedTarget: adjustedTarget
+  });
   
   // If we hit the maximum, return a very large number to indicate "never"
   if (totalMonths >= MAX_MONTHS) {
-    return { years: 999, months: 0, adjustedPatrimony };
+    return { years: 999, months: 0, adjustedPatrimony, chartData };
   }
   
   const years = Math.floor(totalMonths / 12);
   const months = totalMonths % 12;
   
-  return { years, months, adjustedPatrimony };
+  return { years, months, adjustedPatrimony, chartData };
 };
 
 /**
