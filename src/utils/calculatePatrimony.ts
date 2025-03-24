@@ -25,10 +25,7 @@ export const calculateTimeToPatrimony = (
 } => {
   // Convert percentages to decimal
   const monthlyReturnDecimal = monthlyReturn / 100;
-  
-  // Calculate equivalent monthly inflation rate using compound interest formula
-  const monthlyInflationDecimal = Math.pow(1 + inflationRate / 100, 1/12) - 1;
-  
+  const monthlyInflationDecimal = inflationRate / 1200; // Annual to monthly and to decimal
   const annualContributionIncreaseDecimal = annualContributionIncrease / 100;
   
   let currentPatrimony = initialValue;
@@ -81,7 +78,7 @@ export const calculateTimeToPatrimony = (
       currentMonthlyContribution *= (1 + annualContributionIncreaseDecimal);
     }
     
-    // Adjust target for inflation (monthly) using the compound formula
+    // Adjust target for inflation (monthly)
     adjustedTarget *= (1 + monthlyInflationDecimal);
   }
   
