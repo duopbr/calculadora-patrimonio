@@ -1,4 +1,3 @@
-
 /**
  * Calculates the time to reach a desired patrimony
  * 
@@ -25,7 +24,8 @@ export const calculateTimeToPatrimony = (
 } => {
   // Convert percentages to decimal
   const monthlyReturnDecimal = monthlyReturn / 100;
-  const monthlyInflationDecimal = inflationRate / 1200; // Annual to monthly and to decimal
+  // Use compound interest formula for monthly inflation
+  const monthlyInflationDecimal = inflationRate > 0 ? Math.pow(1 + inflationRate / 100, 1/12) - 1 : 0;
   const annualContributionIncreaseDecimal = annualContributionIncrease / 100;
   
   let currentPatrimony = initialValue;
@@ -51,13 +51,14 @@ export const calculateTimeToPatrimony = (
     return { years: 0, months: 0, adjustedPatrimony, chartData: [] };
   }
   
-  // Maximum number of months to prevent infinite loops (100 years)
-  const MAX_MONTHS = 12 * 100;
+  const MAX_MONTHS = 12 * 100; // Keep max limit as safeguard
+  const SIMULATION_MONTHS = 35 * 12; // Simulate for 35 years
   
   // Store the adjustedTarget for each month
   let adjustedTarget = desiredPatrimony;
   
-  while (currentPatrimony < adjustedTarget && totalMonths < MAX_MONTHS) {
+  // Simulate month by month for the fixed duration
+  while (totalMonths < SIMULATION_MONTHS) {
     // Add data point for this month
     chartData.push({
       month: totalMonths,
@@ -82,18 +83,14 @@ export const calculateTimeToPatrimony = (
     adjustedTarget *= (1 + monthlyInflationDecimal);
   }
   
-  // Add final data point when target is reached
+  // Add final data point at the end of the simulation
   chartData.push({
     month: totalMonths,
     patrimony: currentPatrimony,
     adjustedTarget: adjustedTarget
   });
   
-  // If we hit the maximum, return a very large number to indicate "never"
-  if (totalMonths >= MAX_MONTHS) {
-    return { years: 999, months: 0, adjustedPatrimony, chartData };
-  }
-  
+  // Return the total simulation duration
   const years = Math.floor(totalMonths / 12);
   const months = totalMonths % 12;
   

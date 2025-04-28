@@ -282,7 +282,7 @@ const Index = () => {
                   <ChartLine size={20} className="text-duop" />
                   Evolução do Patrimônio
                 </h3>
-                <div className="h-[450px] md:h-[550px] w-full pb-10">
+                <div className="relative w-full h-[350px] md:h-[400px]">
                   <PatrimonyChart data={results.chartData} />
                 </div>
               </div>
