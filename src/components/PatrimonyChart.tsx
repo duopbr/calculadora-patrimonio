@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { 
   LineChart, 
@@ -32,7 +31,7 @@ const PatrimonyChart: React.FC<PatrimonyChartProps> = ({ data }) => {
 
   return (
     <motion.div
-      className="w-full h-[300px] mt-4"
+      className="w-full h-full"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.2 }}
@@ -49,29 +48,30 @@ const PatrimonyChart: React.FC<PatrimonyChartProps> = ({ data }) => {
           }
         }}
       >
-        <LineChart data={filteredData} margin={{ top: 5, right: 5, left: 5, bottom: 25 }}>
+        <LineChart data={filteredData} margin={{ top: 20, right: 30, left: 20, bottom: 25 }}>
           <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
           <XAxis 
             dataKey="month" 
-            tick={{ fontSize: 10 }} 
+            tick={{ fontSize: 12 }} 
             angle={-45} 
             textAnchor="end"
             tickMargin={15}
           />
           <YAxis 
             tickFormatter={(value) => formatCurrency(value).split(',')[0]} 
-            tick={{ fontSize: 10 }}
+            tick={{ fontSize: 12 }}
+            width={80}
           />
           <Tooltip 
             content={({ active, payload }) => {
               if (active && payload && payload.length) {
                 return (
-                  <div className="bg-white p-3 border rounded shadow">
-                    <p className="text-xs font-medium">{payload[0]?.payload.month}</p>
-                    <p className="text-xs text-duop">
+                  <div className="bg-white p-4 border rounded-lg shadow-lg">
+                    <p className="text-sm font-medium mb-2">{payload[0]?.payload.month}</p>
+                    <p className="text-sm text-duop mb-1">
                       <strong>Patrimônio:</strong> {formatCurrency(payload[0]?.value as number)}
                     </p>
-                    <p className="text-xs text-gray-500">
+                    <p className="text-sm text-gray-500">
                       <strong>Meta Corrigida:</strong> {formatCurrency(payload[1]?.value as number)}
                     </p>
                   </div>
@@ -87,8 +87,8 @@ const PatrimonyChart: React.FC<PatrimonyChartProps> = ({ data }) => {
             stroke="#00B2E3" 
             strokeWidth={2} 
             name="Patrimônio" 
-            dot={{ r: 1 }}
-            activeDot={{ r: 5 }}
+            dot={{ r: 2 }}
+            activeDot={{ r: 6 }}
           />
           <Line 
             type="monotone" 
@@ -96,8 +96,8 @@ const PatrimonyChart: React.FC<PatrimonyChartProps> = ({ data }) => {
             stroke="#8E9196" 
             strokeWidth={2} 
             name="Meta Corrigida"
-            dot={{ r: 1 }}
-            activeDot={{ r: 5 }}
+            dot={{ r: 2 }}
+            activeDot={{ r: 6 }}
           />
         </LineChart>
       </ChartContainer>

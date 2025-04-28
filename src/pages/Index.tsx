@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { CircleDollarSign, BarChart, Calculator, Trash2, ChartLine } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -104,9 +103,9 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-duop-background px-4 sm:px-6 py-12">
+    <div className="min-h-screen bg-duop-background px-4 sm:px-6 py-8">
       <motion.div 
-        className="max-w-6xl mx-auto"
+        className="max-w-[1600px] mx-auto"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
@@ -124,150 +123,156 @@ const Index = () => {
           </div>
         </div>
         
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Input Column */}
-          <motion.div 
-            className="lg:col-span-2"
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-          >
-            <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <motion.div variants={itemVariants}>
-                  <CurrencyInput
-                    label="Aporte Inicial"
-                    value={initialValue}
-                    onChange={setInitialValue}
-                    placeholder="R$ 150.000,00"
-                    onClear={() => setInitialValue('')}
-                  />
-                </motion.div>
+        <div className="flex flex-col space-y-8">
+          {/* Form and Results Row */}
+          <div className="flex flex-col lg:flex-row gap-8">
+            {/* Input Section */}
+            <motion.div 
+              className="flex-1 min-w-[320px] lg:max-w-[500px]"
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+            >
+              <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <motion.div variants={itemVariants}>
+                    <CurrencyInput
+                      label="Aporte Inicial"
+                      value={initialValue}
+                      onChange={setInitialValue}
+                      placeholder="R$ 150.000,00"
+                      onClear={() => setInitialValue('')}
+                    />
+                  </motion.div>
+                  
+                  <motion.div variants={itemVariants}>
+                    <CurrencyInput
+                      label="Aporte Mensal"
+                      value={monthlyContribution}
+                      onChange={setMonthlyContribution}
+                      placeholder="R$ 1.000,00"
+                      onClear={() => setMonthlyContribution('')}
+                    />
+                  </motion.div>
+                  
+                  <motion.div variants={itemVariants}>
+                    <CurrencyInput
+                      label="Rentabilidade Mensal Esperada"
+                      value={monthlyReturn}
+                      onChange={setMonthlyReturn}
+                      placeholder="1"
+                      isPercentage={true}
+                      onClear={() => setMonthlyReturn('')}
+                    />
+                  </motion.div>
+                  
+                  <motion.div variants={itemVariants}>
+                    <CurrencyInput
+                      label="Patrimônio Desejado"
+                      value={desiredPatrimony}
+                      onChange={setDesiredPatrimony}
+                      placeholder="R$ 1.000.000,00"
+                      onClear={() => setDesiredPatrimony('')}
+                    />
+                  </motion.div>
+                  
+                  <motion.div variants={itemVariants}>
+                    <CurrencyInput
+                      label="Inflação Média Histórica"
+                      value={inflationRate}
+                      onChange={setInflationRate}
+                      placeholder="6"
+                      isPercentage={true}
+                      onClear={() => setInflationRate('')}
+                    />
+                  </motion.div>
+                  
+                  <motion.div variants={itemVariants}>
+                    <CurrencyInput
+                      label="Aumento Anual de aporte %"
+                      value={annualContributionIncrease}
+                      onChange={setAnnualContributionIncrease}
+                      placeholder="2"
+                      isPercentage={true}
+                      onClear={() => setAnnualContributionIncrease('')}
+                    />
+                  </motion.div>
+                </div>
                 
-                <motion.div variants={itemVariants}>
-                  <CurrencyInput
-                    label="Aporte Mensal"
-                    value={monthlyContribution}
-                    onChange={setMonthlyContribution}
-                    placeholder="R$ 1.000,00"
-                    onClear={() => setMonthlyContribution('')}
-                  />
-                </motion.div>
-                
-                <motion.div variants={itemVariants}>
-                  <CurrencyInput
-                    label="Rentabilidade Mensal Esperada"
-                    value={monthlyReturn}
-                    onChange={setMonthlyReturn}
-                    placeholder="1"
-                    isPercentage={true}
-                    onClear={() => setMonthlyReturn('')}
-                  />
-                </motion.div>
-                
-                <motion.div variants={itemVariants}>
-                  <CurrencyInput
-                    label="Patrimônio Desejado"
-                    value={desiredPatrimony}
-                    onChange={setDesiredPatrimony}
-                    placeholder="R$ 1.000.000,00"
-                    onClear={() => setDesiredPatrimony('')}
-                  />
-                </motion.div>
-                
-                <motion.div variants={itemVariants}>
-                  <CurrencyInput
-                    label="Inflação Média Histórica"
-                    value={inflationRate}
-                    onChange={setInflationRate}
-                    placeholder="6"
-                    isPercentage={true}
-                    onClear={() => setInflationRate('')}
-                  />
-                </motion.div>
-                
-                <motion.div variants={itemVariants}>
-                  <CurrencyInput
-                    label="Aumento Anual de aporte %"
-                    value={annualContributionIncrease}
-                    onChange={setAnnualContributionIncrease}
-                    placeholder="2"
-                    isPercentage={true}
-                    onClear={() => setAnnualContributionIncrease('')}
-                  />
+                <motion.div 
+                  className="mt-8 flex space-x-4"
+                  variants={itemVariants}
+                >
+                  <Button
+                    variant="outline"
+                    onClick={clearForm}
+                    className="flex-1 sm:flex-none bg-gray-100 hover:bg-gray-200 text-gray-700 border-none gap-2"
+                  >
+                    <Trash2 size={18} />
+                    Limpar
+                  </Button>
+                  
+                  <Button
+                    onClick={handleCalculate}
+                    className="flex-1 sm:flex-none bg-duop hover:bg-duop/90 gap-2"
+                    disabled={isCalculating}
+                  >
+                    <Calculator size={18} />
+                    Calcular
+                  </Button>
                 </motion.div>
               </div>
-              
-              <motion.div 
-                className="mt-8 flex space-x-4"
-                variants={itemVariants}
-              >
-                <Button
-                  variant="outline"
-                  onClick={clearForm}
-                  className="flex-1 sm:flex-none bg-gray-100 hover:bg-gray-200 text-gray-700 border-none gap-2"
-                >
-                  <Trash2 size={18} />
-                  Limpar
-                </Button>
+            </motion.div>
+            
+            {/* Results Section */}
+            <motion.div 
+              className="flex-1"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 h-full">
+                <h3 className="text-xl font-semibold text-duop-dark mb-6 flex items-center gap-2">
+                  <ChartLine size={20} className="text-duop" />
+                  Resultados
+                </h3>
                 
-                <Button
-                  onClick={handleCalculate}
-                  className="flex-1 sm:flex-none bg-duop hover:bg-duop/90 gap-2"
-                  disabled={isCalculating}
-                >
-                  <Calculator size={18} />
-                  Calcular
-                </Button>
-              </motion.div>
-            </div>
-          </motion.div>
-          
-          {/* Results Column */}
-          <motion.div 
-            className="lg:col-span-1"
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 h-full">
-              <h3 className="text-xl font-semibold text-duop-dark mb-6 flex items-center gap-2">
-                <ChartLine size={20} className="text-duop" />
-                Resultados
-              </h3>
-              
-              {results ? (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <ResultCard 
-                    label="Anos até atingir esse patrimônio"
-                    value={results.years === 999 ? "Nunca" : `${results.years} anos ${results.months} meses`}
-                  />
-                  
-                  <ResultCard 
-                    label="Patrimônio Corrigido pela Inflação"
-                    value={formatCurrency(results.adjustedPatrimony)}
-                  />
-                  
-                  {/* Chart Section */}
-                  <div className="mt-6">
-                    <h4 className="text-sm font-medium text-gray-600 mb-2">Evolução do Patrimônio</h4>
-                    <PatrimonyChart data={results.chartData} />
+                {results ? (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.5 }}
+                    className="h-full"
+                  >
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                      <ResultCard 
+                        label="Anos até atingir esse patrimônio"
+                        value={results.years === 999 ? "Nunca" : `${results.years} anos ${results.months} meses`}
+                      />
+                      
+                      <ResultCard 
+                        label="Patrimônio Corrigido pela Inflação"
+                        value={formatCurrency(results.adjustedPatrimony)}
+                      />
+                    </div>
+                    
+                    {/* Chart Section with more height */}
+                    <div className="mt-6 h-[calc(100vh-480px)] min-h-[400px]">
+                      <h4 className="text-sm font-medium text-gray-600 mb-2">Evolução do Patrimônio</h4>
+                      <PatrimonyChart data={results.chartData} />
+                    </div>
+                  </motion.div>
+                ) : (
+                  <div className="h-[calc(100%-2rem)] flex flex-col items-center justify-center text-gray-400">
+                    <Calculator size={32} className="mb-4 text-duop/30" />
+                    <p className="text-sm text-center">
+                      Preencha os campos e clique em calcular para ver os resultados
+                    </p>
                   </div>
-                </motion.div>
-              ) : (
-                <div className="h-[calc(100%-2rem)] flex flex-col items-center justify-center text-gray-400">
-                  <Calculator size={32} className="mb-4 text-duop/30" />
-                  <p className="text-sm text-center">
-                    Preencha os campos e clique em calcular para ver os resultados
-                  </p>
-                </div>
-              )}
-            </div>
-          </motion.div>
+                )}
+              </div>
+            </motion.div>
+          </div>
         </div>
       </motion.div>
     </div>
