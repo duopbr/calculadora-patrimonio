@@ -278,12 +278,12 @@ const Index = () => {
               transition={{ duration: 0.5, delay: 0.3 }}
               className="w-full"
             >
-              <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+              <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 overflow-hidden">
                 <h3 className="text-xl font-semibold text-duop-dark mb-4 flex items-center gap-2">
                   <ChartLine size={20} className="text-duop" />
                   Evolução do Patrimônio
                 </h3>
-                <div className="h-[400px] md:h-[500px]">
+                <div className="h-[400px] md:h-[500px] w-full pb-6">
                   <PatrimonyChart data={results.chartData} />
                 </div>
               </div>

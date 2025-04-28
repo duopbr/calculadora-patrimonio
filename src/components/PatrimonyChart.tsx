@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { 
   LineChart, 
@@ -48,58 +49,63 @@ const PatrimonyChart: React.FC<PatrimonyChartProps> = ({ data }) => {
           }
         }}
       >
-        <LineChart data={filteredData} margin={{ top: 20, right: 30, left: 20, bottom: 25 }}>
-          <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
-          <XAxis 
-            dataKey="month" 
-            tick={{ fontSize: 12 }} 
-            angle={-45} 
-            textAnchor="end"
-            tickMargin={15}
-          />
-          <YAxis 
-            tickFormatter={(value) => formatCurrency(value).split(',')[0]} 
-            tick={{ fontSize: 12 }}
-            width={80}
-          />
-          <Tooltip 
-            content={({ active, payload }) => {
-              if (active && payload && payload.length) {
-                return (
-                  <div className="bg-white p-4 border rounded-lg shadow-lg">
-                    <p className="text-sm font-medium mb-2">{payload[0]?.payload.month}</p>
-                    <p className="text-sm text-duop mb-1">
-                      <strong>Patrimônio:</strong> {formatCurrency(payload[0]?.value as number)}
-                    </p>
-                    <p className="text-sm text-gray-500">
-                      <strong>Meta Corrigida:</strong> {formatCurrency(payload[1]?.value as number)}
-                    </p>
-                  </div>
-                );
-              }
-              return null;
-            }}
-          />
-          <Legend verticalAlign="top" height={36} />
-          <Line 
-            type="monotone" 
-            dataKey="patrimony" 
-            stroke="#00B2E3" 
-            strokeWidth={2} 
-            name="Patrimônio" 
-            dot={{ r: 2 }}
-            activeDot={{ r: 6 }}
-          />
-          <Line 
-            type="monotone" 
-            dataKey="adjustedTarget" 
-            stroke="#8E9196" 
-            strokeWidth={2} 
-            name="Meta Corrigida"
-            dot={{ r: 2 }}
-            activeDot={{ r: 6 }}
-          />
-        </LineChart>
+        <ResponsiveContainer width="99%" height="100%">
+          <LineChart data={filteredData} margin={{ top: 20, right: 10, left: 10, bottom: 40 }}>
+            <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
+            <XAxis 
+              dataKey="month" 
+              tick={{ fontSize: 11 }} 
+              angle={-45} 
+              textAnchor="end"
+              tickMargin={15}
+              height={60}
+              scale="point"
+              interval={0}
+            />
+            <YAxis 
+              tickFormatter={(value) => formatCurrency(value).split(',')[0]} 
+              tick={{ fontSize: 11 }}
+              width={65}
+            />
+            <Tooltip 
+              content={({ active, payload }) => {
+                if (active && payload && payload.length) {
+                  return (
+                    <div className="bg-white p-4 border rounded-lg shadow-lg">
+                      <p className="text-sm font-medium mb-2">{payload[0]?.payload.month}</p>
+                      <p className="text-sm text-duop mb-1">
+                        <strong>Patrimônio:</strong> {formatCurrency(payload[0]?.value as number)}
+                      </p>
+                      <p className="text-sm text-gray-500">
+                        <strong>Meta Corrigida:</strong> {formatCurrency(payload[1]?.value as number)}
+                      </p>
+                    </div>
+                  );
+                }
+                return null;
+              }}
+            />
+            <Legend verticalAlign="top" height={36} />
+            <Line 
+              type="monotone" 
+              dataKey="patrimony" 
+              stroke="#00B2E3" 
+              strokeWidth={2} 
+              name="Patrimônio" 
+              dot={{ r: 2 }}
+              activeDot={{ r: 6 }}
+            />
+            <Line 
+              type="monotone" 
+              dataKey="adjustedTarget" 
+              stroke="#8E9196" 
+              strokeWidth={2} 
+              name="Meta Corrigida"
+              dot={{ r: 2 }}
+              activeDot={{ r: 6 }}
+            />
+          </LineChart>
+        </ResponsiveContainer>
       </ChartContainer>
     </motion.div>
   );
