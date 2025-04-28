@@ -49,16 +49,16 @@ const PatrimonyChart: React.FC<PatrimonyChartProps> = ({ data }) => {
           }
         }}
       >
-        <ResponsiveContainer width="99%" height="100%">
-          <LineChart data={filteredData} margin={{ top: 20, right: 10, left: 10, bottom: 40 }}>
+        <ResponsiveContainer width="99%" height="90%">
+          <LineChart data={filteredData} margin={{ top: 20, right: 10, left: 10, bottom: 60 }}>
             <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
             <XAxis 
               dataKey="month" 
               tick={{ fontSize: 11 }} 
               angle={-45} 
               textAnchor="end"
-              tickMargin={15}
-              height={60}
+              tickMargin={20}
+              height={70}
               scale="point"
               interval={0}
             />

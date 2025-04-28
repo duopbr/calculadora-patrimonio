@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { CircleDollarSign, BarChart, Calculator, Trash2, ChartLine } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -283,7 +282,7 @@ const Index = () => {
                   <ChartLine size={20} className="text-duop" />
                   Evolução do Patrimônio
                 </h3>
-                <div className="h-[400px] md:h-[500px] w-full pb-6">
+                <div className="h-[450px] md:h-[550px] w-full pb-10">
                   <PatrimonyChart data={results.chartData} />
                 </div>
               </div>
