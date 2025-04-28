@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { CircleDollarSign, BarChart, Calculator, Trash2, ChartLine } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -124,17 +125,18 @@ const Index = () => {
         </div>
         
         <div className="flex flex-col space-y-8">
-          {/* Form and Results Row */}
-          <div className="flex flex-col lg:flex-row gap-8">
+          {/* Inputs and Results in horizontal layout */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Input Section */}
             <motion.div 
-              className="flex-1 min-w-[320px] lg:max-w-[500px]"
+              className="flex-1"
               variants={containerVariants}
               initial="hidden"
               animate="visible"
             >
-              <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 h-full">
+                <h3 className="text-xl font-semibold text-duop-dark mb-6">Dados para Cálculo</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <motion.div variants={itemVariants}>
                     <CurrencyInput
                       label="Aporte Inicial"
@@ -224,7 +226,7 @@ const Index = () => {
               </div>
             </motion.div>
             
-            {/* Results Section */}
+            {/* Results Summary Section */}
             <motion.div 
               className="flex-1"
               initial={{ opacity: 0, x: 20 }}
@@ -244,7 +246,7 @@ const Index = () => {
                     transition={{ duration: 0.5 }}
                     className="h-full"
                   >
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <div className="grid grid-cols-1 gap-4 mb-6">
                       <ResultCard 
                         label="Anos até atingir esse patrimônio"
                         value={results.years === 999 ? "Nunca" : `${results.years} anos ${results.months} meses`}
@@ -254,12 +256,6 @@ const Index = () => {
                         label="Patrimônio Corrigido pela Inflação"
                         value={formatCurrency(results.adjustedPatrimony)}
                       />
-                    </div>
-                    
-                    {/* Chart Section with more height */}
-                    <div className="mt-6 h-[calc(100vh-480px)] min-h-[400px]">
-                      <h4 className="text-sm font-medium text-gray-600 mb-2">Evolução do Patrimônio</h4>
-                      <PatrimonyChart data={results.chartData} />
                     </div>
                   </motion.div>
                 ) : (
@@ -273,6 +269,26 @@ const Index = () => {
               </div>
             </motion.div>
           </div>
+
+          {/* Chart Section in full width */}
+          {results && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="w-full"
+            >
+              <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+                <h3 className="text-xl font-semibold text-duop-dark mb-4 flex items-center gap-2">
+                  <ChartLine size={20} className="text-duop" />
+                  Evolução do Patrimônio
+                </h3>
+                <div className="h-[400px] md:h-[500px]">
+                  <PatrimonyChart data={results.chartData} />
+                </div>
+              </div>
+            </motion.div>
+          )}
         </div>
       </motion.div>
     </div>
