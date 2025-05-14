@@ -110,16 +110,16 @@ const Index = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        {/* Header with Centered Title and Logo */}
-        <div className="mb-8 flex flex-col items-center justify-center">
-          <div className="mb-4">
+        {/* Header with Logo at Left and Title */}
+        <div className="mb-8 flex items-center">
+          <div className="mr-4">
             <img 
               src="/lovable-uploads/2cf9cfe8-9aee-4757-950f-7ef15e233b12.png" 
               alt="Duop Logo" 
               className="h-16 w-auto"
             />
           </div>
-          <div className="text-center">
+          <div>
             <h1 className="text-3xl font-bold text-duop-dark">Calculadora de</h1>
             <h2 className="text-2xl font-medium text-duop">Patrimônio</h2>
           </div>
