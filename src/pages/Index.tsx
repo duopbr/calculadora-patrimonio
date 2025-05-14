@@ -110,19 +110,30 @@ const Index = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        {/* Header with Logo at top-left corner */}
-        <div className="mb-8">
-          <div className="flex items-center">
-            <img 
-              src="/lovable-uploads/2cf9cfe8-9aee-4757-950f-7ef15e233b12.png" 
-              alt="Duop Logo" 
-              className="h-12 w-auto mr-3"
-            />
-            <div>
-              <h1 className="text-3xl font-bold text-duop-dark">Calculadora de</h1>
-              <h2 className="text-2xl font-medium text-duop">Patrimônio</h2>
-            </div>
+        {/* Header with Logo centered at top */}
+        <div className="flex flex-col items-center mb-6">
+          <img 
+            src="/lovable-uploads/2cf9cfe8-9aee-4757-950f-7ef15e233b12.png" 
+            alt="Duop Logo" 
+            className="h-16 w-auto mb-4"
+          />
+          <div className="text-center">
+            <h1 className="text-3xl font-bold text-duop-dark">Calculadora de</h1>
+            <h2 className="text-2xl font-medium text-duop mb-2">Patrimônio</h2>
           </div>
+        </div>
+        
+        {/* Explanation Section */}
+        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 mb-8">
+          <h3 className="text-xl font-semibold text-duop-dark mb-4">Como funciona a calculadora?</h3>
+          <p className="text-gray-600 mb-4">
+            Esta calculadora ajuda você a estimar quanto tempo levará para atingir seu patrimônio desejado,
+            considerando seu investimento inicial, aportes mensais e a rentabilidade esperada.
+          </p>
+          <p className="text-gray-600">
+            Você também pode incluir fatores como inflação e aumento anual dos aportes para obter
+            uma projeção mais precisa do crescimento do seu patrimônio ao longo do tempo.
+          </p>
         </div>
         
         <div className="flex flex-col space-y-8">
