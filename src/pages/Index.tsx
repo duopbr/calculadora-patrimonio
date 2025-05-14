@@ -1,6 +1,5 @@
-
 import React, { useState, useEffect } from 'react';
-import { ChartLine } from 'lucide-react';
+import { ChartLine, Trash2, Calculator } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
