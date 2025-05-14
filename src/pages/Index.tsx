@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { CircleDollarSign, BarChart, Calculator, Trash2, ChartLine } from 'lucide-react';
+import { ChartLine } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
@@ -115,9 +115,11 @@ const Index = () => {
         <div className="mb-8 flex items-center justify-between">
           <div className="flex items-center">
             <div className="mr-4">
-              <div className="w-12 h-12 bg-duop rounded-full flex items-center justify-center text-white">
-                <BarChart size={24} />
-              </div>
+              <img 
+                src="/lovable-uploads/2cf9cfe8-9aee-4757-950f-7ef15e233b12.png" 
+                alt="Duop Logo" 
+                className="h-12 w-auto"
+              />
             </div>
             <div>
               <h1 className="text-3xl font-bold text-duop-dark">Calculadora de</h1>
