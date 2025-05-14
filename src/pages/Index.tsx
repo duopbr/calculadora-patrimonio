@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { CircleDollarSign, BarChart, Calculator, Trash2, ChartLine } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -110,16 +111,25 @@ const Index = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        {/* Header */}
-        <div className="mb-8 flex items-center">
-          <div className="mr-4">
-            <div className="w-12 h-12 bg-duop rounded-full flex items-center justify-center text-white">
-              <BarChart size={24} />
+        {/* Header with Logo */}
+        <div className="mb-8 flex items-center justify-between">
+          <div className="flex items-center">
+            <div className="mr-4">
+              <div className="w-12 h-12 bg-duop rounded-full flex items-center justify-center text-white">
+                <BarChart size={24} />
+              </div>
+            </div>
+            <div>
+              <h1 className="text-3xl font-bold text-duop-dark">Calculadora de</h1>
+              <h2 className="text-2xl font-medium text-duop">Patrimônio</h2>
             </div>
           </div>
-          <div>
-            <h1 className="text-3xl font-bold text-duop-dark">Calculadora de</h1>
-            <h2 className="text-2xl font-medium text-duop">Patrimônio</h2>
+          <div className="flex-shrink-0">
+            <img 
+              src="/lovable-uploads/2cf9cfe8-9aee-4757-950f-7ef15e233b12.png" 
+              alt="Duop Logo" 
+              className="h-16 w-auto"
+            />
           </div>
         </div>
         
@@ -277,7 +287,7 @@ const Index = () => {
               transition={{ duration: 0.5, delay: 0.3 }}
               className="w-full"
             >
-              <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 overflow-hidden">
+              <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 overflow-hidden pb-10">
                 <h3 className="text-xl font-semibold text-duop-dark mb-4 flex items-center gap-2">
                   <ChartLine size={20} className="text-duop" />
                   Evolução do Patrimônio
